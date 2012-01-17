@@ -1,0 +1,13 @@
+Source: yavdr-desktop
+Section: misc
+Priority: optional
+Maintainer: Gerald Dachs <gda@dachsweb.de>
+Uploaders: Gerald Dachs <gda@dachsweb.de>
+Standards-Version: 3.9.1
+Build-Depends: debhelper (>= 7)
+
+Package: yavdr-desktop
+Architecture: any
+Depends: ${yavdr-desktop}
+Description: dependencies for yavdr-desktop and configuration
+ dependencies for yavdr-desktop and configuration

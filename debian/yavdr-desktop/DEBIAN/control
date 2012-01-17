@@ -1,0 +1,10 @@
+Package: yavdr-desktop
+Version: 0.0.1-0yavdr0~oneiric
+Architecture: amd64
+Maintainer: Gerald Dachs <gda@dachsweb.de>
+Installed-Size: 28
+Depends: app-install-data, colord, dconf-tools, devilspie, gnome-control-center, gnome-session, gnome-session-fallback, gnome-shell, gnome-themes-standard, gnome-tweak-tool, gnome-user-share, gstreamer0.10-pulseaudio, gtk2-engines, gvfs-backends, gvfs-bin, hwdata, indicator-application, libclutter-1.0-common, libcogl-common, libgphoto2-l10n, lightdm, lightdm-gtk-greeter, mousetweaks, nautilus, nautilus-sendto, network-manager, network-manager-gnome, paprefs, pulseaudio, pulseaudio-esound-compat, pulseaudio-module-x11, rtkit, xdg-user-dirs, xserver-xorg-video-vmware
+Section: misc
+Priority: optional
+Description: dependencies for yavdr-desktop and configuration
+ dependencies for yavdr-desktop and configuration
