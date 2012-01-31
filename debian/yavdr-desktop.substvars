@@ -1,2 +1,0 @@
-yavdr-desktop=app-install-data,colord,dconf-tools,devilspie,gnome-control-center,gnome-session,gnome-session-fallback,gnome-shell,gnome-themes-standard,gnome-tweak-tool,gnome-user-share,gstreamer0.10-pulseaudio,gtk2-engines,gvfs-backends,gvfs-bin,hwdata,indicator-application,libclutter-1.0-common,libcogl-common,libgphoto2-l10n,lightdm,lightdm-gtk-greeter,mousetweaks,nautilus,nautilus-sendto,network-manager,network-manager-gnome,paprefs,pulseaudio,pulseaudio-esound-compat,pulseaudio-module-x11,rtkit,xdg-user-dirs,xserver-xorg-video-vmware,
-misc:Depends=

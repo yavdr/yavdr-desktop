@@ -1,0 +1,18 @@
+#!/bin/sh
+
+set -e
+
+PKG=yavdr-desktop
+
+if [ "$1" = remove ] ; then
+        for f in gssapi_mech.conf auto.master
+        do
+                [ -L /etc/$f ] && rm /etc/$f
+                dpkg-divert --remove --package ${PKG} --rename \
+                        --divert /etc/$f.distrib /etc/$f
+        done
+fi
+
+#DEBHELPER#
+
+exit 0

@@ -1,0 +1,15 @@
+#!/bin/bash
+
+TMPFILE=/tmp/yavdr-debhelper.$$
+
+for dir in usr/share/yavdr/override/ etc/yavdr/override; do
+  for file in $(find  $dir -type f | sed -e "s|$dir||"); do
+    echo "dpkg-divert --add --package ${PKG} --rename --divert /$file.distrib /$file" >>$TMPFILE
+    echo "[ \! -e /$file -o -L /$file ] && ln -sf /$dir$file /$file" >>$TMPFILE
+  done
+done
+BUFFER=$(cat $TMPFILE)
+echo $BUFFER
+for file in debian/*postinst.in; do
+  perl -pe 's:@YAVDRDEBHELPER@:$BUFFER:e' $file > debian/postinst
+done

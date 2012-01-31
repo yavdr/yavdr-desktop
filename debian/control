@@ -8,6 +8,7 @@ Build-Depends: debhelper (>= 7)
 
 Package: yavdr-desktop
 Architecture: any
-Depends: ${yavdr-desktop}
-Description: dependencies for yavdr-desktop and configuration
- dependencies for yavdr-desktop and configuration
+Description: dependencies and configuration for yavdr-desktop
+ dependencies and configuration for yavdr-desktop
+
+
