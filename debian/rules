@@ -41,7 +41,6 @@ binary-arch: build install
 	dh_compress
 	dh_fixperms
 	dh_installdeb
-	rm debian/yavdr-desktop/DEBIAN/conffiles
 	dh_gencontrol
 	dh_md5sums
 	dh_builddeb
