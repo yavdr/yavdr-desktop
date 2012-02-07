@@ -1,0 +1,11 @@
+IDLETIMECMD=/usr/bin/desktop-idletime
+MIN_DESKTOP_IDLETIME=300
+
+[ -f /etc/default/yavdr-desktop ] && . /etc/default/yavdr-desktop
+
+if [ $($IDLETIMECMD) -lt $MIN_DESKTOP_IDLETIME ]; then
+    echo "ABORT_MESSAGE=\"Desktop was busy less than $MIN_DESKTOP_IDLETIME seconds ago\""
+    exit 1
+fi
+
+exit 0
