@@ -6,10 +6,14 @@ PKG=yavdr-desktop
 
 case "$1" in
     configure)
-        /usr/lib/lightdm/lightdm-set-defaults -s gnome-shell
-
+	# initialize dconf database
 	/usr/bin/dconf update
 
+	# set gnome shell as standard desktop
+        /usr/lib/lightdm/lightdm-set-defaults -s gnome-shell
+
+
+	# make panel transparent
 	FILE=/usr/share/gnome-shell/theme/gnome-shell.css
 	dpkg-divert --add --package ${PKG} --rename \
 		--divert $FILE.distrib $FILE
