@@ -22,7 +22,7 @@ install: build
 	dh_testroot
 	dh_prep
 	dh_installdirs
-
+	dh_install
 	printf > debian/yavdr-desktop.substvars "yavdr-desktop=%s\n" \
          "`grep -v "^#" yavdr-desktop-essential|tr '\n' ', '`"
 
