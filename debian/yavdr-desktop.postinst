@@ -25,6 +25,8 @@ case "$1" in
                         --divert /etc/$f.distrib /etc/$f
                 [ \! -e /etc/$f -o -L /etc/$f ] && ln -sf /etc/yavdr/override/$f /etc/$f
         done
+
+	/usr/bin/signal-event post-upgrade
         ;;
 esac
 
