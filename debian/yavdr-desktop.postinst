@@ -39,6 +39,16 @@ EOF
 		dpkg-divert --add --package ${PKG} --rename \
 			--divert $FILE.distrib $FILE
         	[ \! -e $FILE -o -L $FILE ] && ln -sf $ETC_OVERRIDE$FILE $FILE
+
+		FILE=/etc/init/yavdr-wm.conf
+        	cat <<EOF >$FILE
+start on desktop-session-start
+stop on desktop-shutdown
+
+respawn
+
+exec su - $DESKTOP_USER -c "DISPLAY=:0 /usr/bin/yavdr-wm"
+EOF
 	fi
 
 	/usr/bin/signal-event post-upgrade

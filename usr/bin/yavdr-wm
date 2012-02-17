@@ -1,0 +1,56 @@
+#!/usr/bin/env python
+
+import wnck
+import gtk
+import optparse
+#import pyatspi
+
+class UnfocusShader(object):
+    def __init__(self, title_matches=None):
+        if title_matches is None:
+            title_matches = ["xine: vdr:/tmp/vdr-xine/stream#demux:mpeg_pes"]
+        self.title_matches = [s.lower() for s in title_matches]
+        
+        screen = wnck.screen_get_default()
+        screen.connect("active-window-changed", self.on_active_window_changed)
+        screen.connect("window-opened", self.on_window_opened)
+    
+    def match_window(self, window):
+        window_title = window.get_name().lower()
+        print("<%s>") % (window_title)
+        return any(s in window_title for s in self.title_matches)
+    
+    def on_active_window_changed (self, screen, previous):
+        active = screen.get_active_window()
+        print("active")
+        if active and active is not None:
+            if self.match_window(active):
+                print("active matched")
+                window = gtk.gdk.window_foreign_new(active.get_xid())
+                window.set_decorations(0)
+                window.maximize()
+            print("previous")
+            if previous and self.match_window(previous):
+                window = gtk.gdk.window_foreign_new(previous.get_xid())
+                window.unmaximize()
+                window.set_decorations(gtk.gdk.DECOR_ALL)
+
+    def on_window_opened (self, screen, window):
+        window_title = window.get_name().lower()
+        print("Window opened: %s") % (window_title)
+
+    def pressKey(self, keycode):
+        """Takes an integer keycode. You can find these with xev."""
+        pyatspi.Registry.generateKeyboardEvent(keycode, None,
+                                              pyatspi.KEY_PRESSRELEASE)
+            
+parser = optparse.OptionParser()
+
+parser.add_option('-t', '--title', metavar='TITLE', action='append',
+    dest='title_matches', help='Match window title')
+    
+options, args = parser.parse_args()
+
+shader = UnfocusShader(title_matches=options.title_matches)
+    
+gtk.main()

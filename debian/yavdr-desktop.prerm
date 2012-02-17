@@ -17,6 +17,7 @@ if [ "$1" = remove ] ; then
 
         # created by postinst, remove it outside of loop
         rm -f $ETC_OVERRIDE/etc/lightdm/lightdm.conf
+        rm -f /etc/init/yavdr-wm
 fi
 
 #DEBHELPER#

@@ -35,6 +35,7 @@ paprefs
 pulseaudio
 pulseaudio-esound-compat
 pulseaudio-module-x11
+python-wnck
 rtkit
 xdg-user-dirs
 xserver-xorg-video-vmware
