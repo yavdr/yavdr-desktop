@@ -5,12 +5,18 @@ set -e
 PKG=yavdr-desktop
 
 if [ "$1" = remove ] ; then
-        for f in gssapi_mech.conf auto.master
+        ETC_OVERRIDE=/etc/yavdr/override
+        FILES=/etc/lightdm/lightdm.conf
+
+        for f in $FILES
         do
-                [ -L /etc/$f ] && rm /etc/$f
+                [ -L $f ] && rm $f
                 dpkg-divert --remove --package ${PKG} --rename \
-                        --divert /etc/$f.distrib /etc/$f
+                        --divert $f.distrib $f
         done
+
+        # created by postinst, remove it outside of loop
+        rm -f $ETC_OVERRIDE/etc/lightdm/lightdm.conf
 fi
 
 #DEBHELPER#
