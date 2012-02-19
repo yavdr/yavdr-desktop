@@ -1,2 +1,2 @@
 [org/gnome/shell]
-enabled-extensions=['autohidetopbar2@werewolves.us']
+enabled-extensions=['autohidetopbar2@werewolves.us', 'yavdrcustomizations@gda.dachsweb.de']
