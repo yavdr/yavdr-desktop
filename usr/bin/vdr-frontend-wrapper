@@ -1,0 +1,18 @@
+#!/bin/bash
+
+#XINE_BUFFER_LOG=1
+USE_AUTOCROP=0
+export USE_AUTOCROP
+
+export __GL_SYNC_TO_VBLANK=1
+
+export __GL_SYNC_DISPLAY_DEVICE=`/usr/bin/dbget system.x11.display.0.device`
+
+HUDOPTS=""
+XINELIBOUTPUTOPTS="--post tvtime:method=use_vo_driver --reconnect --syslog --silent --tcp"
+CONFIG="--config /etc/vdr-sxfe/config_xineliboutput"
+
+/usr/bin/devilspie -a &
+/usr/bin/vdr-sxfe $HUDOPTS $XINELIBOUTPUTOPTS $CONFIG xvdr://127.0.0.1:37890
+
+exit 0

@@ -1,0 +1,5 @@
+(if
+  (or
+    (is (window_name) "Connecting to VDR ...")
+    (is (window_name) "VDR - 127.0.0.1"))
+      (begin maximize undecorate focus quit))

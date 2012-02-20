@@ -1,5 +1,0 @@
-(if
-  (or
-    (is (application_name) "Connecting to VDR ...")
-    (is (application_name) "VDR - 127.0.0.1"))
-      (begin undecorate focus maximize quit))
