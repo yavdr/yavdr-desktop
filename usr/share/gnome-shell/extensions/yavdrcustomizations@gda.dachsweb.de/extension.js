@@ -24,9 +24,13 @@ function changeUserMenu() {
     }
 }
  
+
 function init() {
     let statusMenu = Main.panel._statusArea.userMenu;
     changeUserMenu.call(statusMenu);
 }
 
+function enable() { }
+
+function disable() { }
 
