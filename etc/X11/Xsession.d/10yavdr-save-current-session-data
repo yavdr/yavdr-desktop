@@ -1,1 +1,0 @@
-echo "XAUTHORITY=$XAUTHORITY" >/var/tmp/current-session-data
