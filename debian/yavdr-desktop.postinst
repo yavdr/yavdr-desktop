@@ -13,12 +13,15 @@ case "$1" in
         /usr/lib/lightdm/lightdm-set-defaults -s gnome-shell
 
 
-	# make panel transparent
-	FILE=/usr/share/gnome-shell/theme/gnome-shell.css
-	dpkg-divert --add --package ${PKG} --rename \
-		--divert $FILE.distrib $FILE
-        [ \! -e $FILE -o -L $FILE ] && ln -sf /usr/share/yavdr/override/$FILE $FILE
-
+	FILES=/usr/share/gnome-shell/theme/gnome-shell.css \
+              /usr/share/gnome-shell/js/ui/endSessionDialog.js
+        for f in $FILES
+	do
+		dpkg-divert --add --package ${PKG} --rename \
+			--divert $f.distrib $f
+        	[ \! -e $f -o -L $f ] && \
+                	ln -sf /usr/share/yavdr/override/$f $f
+	done
 #        for f in auto.master gssapi_mech.conf
 #        do
 #                dpkg-divert --add --package ${PKG} --rename \
@@ -50,6 +53,8 @@ respawn
 exec su - $DESKTOP_USER -c "DISPLAY=:0 /usr/bin/yavdr-wm"
 EOF
 	fi
+
+	/usr/bin/process-template /etc/asound.conf 
 
 	/usr/bin/signal-event post-upgrade
         ;;
