@@ -13,8 +13,8 @@ case "$1" in
         /usr/lib/lightdm/lightdm-set-defaults -s gnome-shell
 
 
-	FILES=/usr/share/gnome-shell/theme/gnome-shell.css \
-              /usr/share/gnome-shell/js/ui/endSessionDialog.js
+	FILES="/usr/share/gnome-shell/theme/gnome-shell.css \
+              /usr/share/gnome-shell/js/ui/endSessionDialog.js"
         for f in $FILES
 	do
 		dpkg-divert --add --package ${PKG} --rename \
