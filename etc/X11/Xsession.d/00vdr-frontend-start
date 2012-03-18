@@ -1,3 +1,0 @@
-daemon --stop --name=vdr-frontend-wrapper ||:
-daemon --name=vdr-frontend-wrapper --output=/tmp/vdr-frontend.log --respawn -- /usr/bin/vdr-frontend-wrapper
-

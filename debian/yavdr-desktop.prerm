@@ -8,7 +8,8 @@ if [ "$1" = remove ] ; then
         ETC_OVERRIDE=/etc/yavdr/override
         FILES="/etc/lightdm/lightdm.conf \
 	      /usr/share/gnome-shell/theme/gnome-shell.css \
-              /usr/share/gnome-shell/js/ui/endSessionDialog.js"
+              /usr/share/gnome-shell/js/ui/endSessionDialog.js \
+              /etc/default/pulseaudio"
 
         for f in $FILES
         do

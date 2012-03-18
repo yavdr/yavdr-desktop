@@ -25,12 +25,15 @@ case "$1" in
         	[ \! -e $f -o -L $f ] && \
                 	ln -sf /usr/share/yavdr/override/$f $f
 	done
-#        for f in auto.master gssapi_mech.conf
-#        do
-#                dpkg-divert --add --package ${PKG} --rename \
-#                        --divert /etc/$f.distrib /etc/$f
-#                [ \! -e /etc/$f -o -L /etc/$f ] && ln -sf /etc/yavdr/override/$f /etc/$f
-#        done
+
+	FILES="/etc/default/pulseaudio"
+        for f in $FILES
+	do
+		dpkg-divert --add --package ${PKG} --rename \
+			--divert $f.distrib $f
+        	[ \! -e $f -o -L $f ] && \
+                	ln -sf /etc/yavdr/override/$f $f
+	done
 
         DESKTOP_USER=$(getent passwd 1000|cut -d ':' -f 1)
 	if [ -n "$DESKTOP_USER" ]; then
@@ -46,15 +49,9 @@ EOF
 			--divert $FILE.distrib $FILE
         	[ \! -e $FILE -o -L $FILE ] && ln -sf $ETC_OVERRIDE$FILE $FILE
 
-		FILE=/etc/init/yavdr-wm.conf
-        	cat <<EOF >$FILE
-start on desktop-session-start
-stop on desktop-shutdown
-
-respawn
-
-exec su - $DESKTOP_USER -c "DISPLAY=:0 /usr/bin/yavdr-wm"
-EOF
+                if ! grep "$DESKTOP_USER.*initctl" /etc/sudoers >/dev/null; then
+                    echo "$DESKTOP_USER ALL=NOPASSWD: /sbin/initctl *" >>/etc/sudoers
+                fi
 	fi
 
 	/usr/bin/process-template /etc/asound.conf 

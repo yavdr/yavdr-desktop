@@ -11,6 +11,10 @@ DEB_HOST_ARCH ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
 build:
 # Nothing to do
 
+override_dh_installdeb:
+	dh_installdeb
+	rm debian/yavdr-conffiles/DEBIAN/conffiles
+
 clean:
 	dh_testdir
 	dh_testroot
