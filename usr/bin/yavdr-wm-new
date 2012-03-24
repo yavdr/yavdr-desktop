@@ -12,8 +12,26 @@ import socket
 import string
 import gobject
 ###################
+import ConfigParser
+import os
 
-class UnfocusShader(object):
+class WindowsManagerConfig:
+
+    def __init__(self):
+        self.config = ConfigParser.ConfigParser()
+        self.config.read(['/etc/yavdr-desktop/yavdr-wm.conf', os.path.expanduser('~/.yavdr-wm.conf')])
+        self.config = dict(self.getConfigSections())
+
+    def getConfigOptions(self, section):
+        for option in self.config.options(section):
+            yield option, self.config.get(section, option)
+
+    def getConfigSections(self):
+        for section in self.config.sections():
+            yield section, dict(self.getConfigOptions(section))
+
+
+class WindowsManager(object):
     def __init__(self, title_matches=None):
         if title_matches is None:
             title_matches = ["softhddevice", "XBMC Media Center", "xbmc.bin"]
@@ -167,7 +185,8 @@ def getOptions():
 
 def main():
     options, args = getOptions()
-    shader = UnfocusShader(title_matches=options.title_matches)
+    wmc = WindowsManagerConfig()
+    wm = WindowsManager(title_matches=options.title_matches)
     
 	# This is a standard GTK mechanism, which is required to capture all existing events
     while gtk.events_pending():   
