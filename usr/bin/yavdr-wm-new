@@ -12,7 +12,6 @@ import socket
 import string
 import gobject
 import itertools
-###################
 import ConfigParser
 import os
 
@@ -42,7 +41,7 @@ class WindowsManager(object):
     def __init__(self, config):
         self.config = config
         self.remote = self.create_dbus_remoteHandler()
-        Lircd2Any = lircd2any('/var/run/lirc/lircd', None)
+        Lircd2Any = lircd2any('/var/run/lirc/lircd', 'lirc') # use None to disable remote at startup, 'lirc' for lirc-Socket, 'uinput' for virtual event device
                
         screen = wnck.screen_get_default()
         screen.connect("active-window-changed", self.on_active_window_changed)
@@ -86,7 +85,7 @@ class WindowsManager(object):
         remote = dbus.Interface(proxy_obj, "de.tvdr.vdr.remote")
         return remote
     
-    ''' Example functions to control if VDR reacts to remote events
+    ''' Example functions to control if VDR reacts to remote events '''
     def remote_status(self):
         # get current remote status
         return self.remote.Status()
@@ -94,9 +93,8 @@ class WindowsManager(object):
     def disableRemote(self):
         self.remote.Disable()
         
-    def enableRemode(self):
+    def enableRemote(self):
         self.remote.Enable()
-    '''
         
 class lircd2any():
 
@@ -150,7 +148,8 @@ class OutputDev():
             self.events = self.select_capabilities(match)
             self.device = uinput.Device(self.events, devicename)
         if devicetype == 'lirc':
-            self.device, self.conn = self.create_lircd_socket(socket_path)
+            self.device = self.create_lircd_socket(socket_path)
+            self.conns = []
 
     def select_capabilities(self,match):
         keys = []
@@ -166,18 +165,32 @@ class OutputDev():
         except OSError:
             pass
         sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+        sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         sock.bind(socket_path)
-        sock.listen(1)
-        conn, addr = sock.accept()
-        return sock, conn
+        sock.listen(5)
+        gobject.io_add_watch(sock, gobject.IO_IN, self.listener)
+        syslog.syslog("created Lirc-Socket %s"%(socket_path))
+        return sock
+
+    def listener(self, sock, *args):
+        conn,a = sock.accept()
+        self.conns.append(conn)
+        syslog.syslog("Connected to %s" %(conn))
+        return True
+
 
     def send_key(self, code, count, cmd, device):
         if self.devicetype == 'uinput':
             self.device.emit(eval('uinput.%s'%(cmd)),1)
             self.device.emit(eval('uinput.%s'%(cmd)),0)
-        if self.devicetype == 'lirc':
-            self.conn.send("%s\n"%" ".join([code, count, cmd, device]))
-
+        if self.devicetype == 'lirc' and len(self.conns) > 0:
+            for conn in self.conns:
+                try:
+                    conn.send("%s\n"%" ".join([code, count, cmd, device]))
+                except: # garbage collection for lost clients - any better idea?
+		    syslog.syslog("cannot write to connection %s, removing client connection"%(conn))
+                    conn.close()
+                    self.conns.pop(self.conns.index(conn))
 
 
 def getOptions():          
