@@ -16,8 +16,7 @@ case "$1" in
 	sed -i -e "s/^\(XSession=\).*$/\1gnome-shell/" \
          /var/lib/AccountsService/users/* ||:
 
-	FILES="/usr/share/gnome-shell/theme/gnome-shell.css \
-              /usr/share/gnome-shell/js/ui/endSessionDialog.js"
+	FILES="/usr/share/gnome-shell/js/ui/endSessionDialog.js"
         for f in $FILES
 	do
 		dpkg-divert --add --package ${PKG} --rename \
