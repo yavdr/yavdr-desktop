@@ -38,5 +38,6 @@ pulseaudio-esound-compat
 pulseaudio-module-x11
 python-wnck
 rtkit
+vdr-plugin-softhddevice
 xdg-user-dirs
 xserver-xorg-video-vmware
