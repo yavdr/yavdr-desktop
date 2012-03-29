@@ -60,6 +60,9 @@ EOF
 	/usr/bin/signal-event change-plugin disable vdr-plugin-xineliboutput
 	/usr/bin/signal-event change-plugin enable vdr-plugin-softhddevice
 
+        adduser vdr pulse-access
+        adduser $DESKTOP_USER pulse-access
+
 	/usr/bin/signal-event post-upgrade
         ;;
 esac
