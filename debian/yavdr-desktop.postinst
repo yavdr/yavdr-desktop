@@ -52,6 +52,18 @@ EOF
                 if ! grep "$DESKTOP_USER.*initctl" /etc/sudoers >/dev/null; then
                     echo "$DESKTOP_USER ALL=NOPASSWD: /sbin/initctl *" >>/etc/sudoers
                 fi
+
+                adduser $DESKTOP_USER pulse-access
+
+                mkdir -p /home/$DESKTOP_USER/.xbmc/userdata
+        	cat <<EOF >/home/$DESKTOP_USER/.xbmc/userdata/advancedsettings.xml
+<advancedsettings>
+    <videoscreen>
+        <screen>-1</screen>
+        <screenmode>WINDOW</screenmode>
+    </videoscreen>
+</advancedsettings>
+EOF
 	fi
 
 	/usr/bin/process-template /etc/asound.conf 
@@ -61,7 +73,6 @@ EOF
 	/usr/bin/signal-event change-plugin enable vdr-plugin-softhddevice
 
         adduser vdr pulse-access
-        adduser $DESKTOP_USER pulse-access
 
 	/usr/bin/signal-event post-upgrade
         ;;
