@@ -3,8 +3,6 @@
 set -e
 
 if [ "$1" = remove ] ; then
-	/usr/bin/process-template /etc/asound.conf
-
         /usr/bin/signal-event post-upgrade
 fi
 

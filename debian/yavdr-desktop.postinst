@@ -25,16 +25,7 @@ case "$1" in
                 	ln -sf /usr/share/yavdr/override/$f $f
 	done
 
-	FILES="/etc/default/pulseaudio"
-        for f in $FILES
-	do
-		dpkg-divert --add --package ${PKG} --rename \
-			--divert $f.distrib $f
-        	[ \! -e $f -o -L $f ] && \
-                	ln -sf /etc/yavdr/override/$f $f
-	done
-
-        DESKTOP_USER=$(getent passwd 1000|cut -d ':' -f 1)
+        DESKTOP_USER=vdr
 	if [ -n "$DESKTOP_USER" ]; then
 		ETC_OVERRIDE=/etc/yavdr/override
 		FILE=/etc/lightdm/lightdm.conf
@@ -66,13 +57,9 @@ EOF
 EOF
 	fi
 
-	/usr/bin/process-template /etc/asound.conf 
-
 	/usr/bin/signal-event change-plugin disable vdr-plugin-xine
 	/usr/bin/signal-event change-plugin disable vdr-plugin-xineliboutput
 	/usr/bin/signal-event change-plugin enable vdr-plugin-softhddevice
-
-        adduser vdr pulse-access
 
 	/usr/bin/signal-event post-upgrade
         ;;
