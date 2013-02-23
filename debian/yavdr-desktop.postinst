@@ -10,10 +10,10 @@ case "$1" in
 	/usr/bin/dconf update
 
 	# set gnome shell as standard desktop
-        /usr/lib/lightdm/lightdm-set-defaults -s gnome-shell
+        /usr/lib/lightdm/lightdm-set-defaults -s yavdr-upstart
 
 	# the previous statements seems to be not enough
-	sed -i -e "s/^\(XSession=\).*$/\1gnome-shell/" \
+	sed -i -e "s/^\(XSession=\).*$/\1yavdr-upstart/" \
          /var/lib/AccountsService/users/* ||:
 
 	FILES="/usr/share/gnome-shell/js/ui/endSessionDialog.js \
@@ -35,7 +35,7 @@ case "$1" in
 [SeatDefaults] 
 autologin-user=$DESKTOP_USER
 autologin-user-timeout=0
-user-session=gnome-shell
+user-session=yavdr-upstart
 EOF
 		dpkg-divert --add --package ${PKG} --rename \
 			--divert $FILE.distrib $FILE
@@ -62,7 +62,7 @@ EOF
 	/usr/bin/signal-event change-plugin disable vdr-plugin-xineliboutput
 	/usr/bin/signal-event change-plugin enable vdr-plugin-softhddevice
 
-	/usr/bin/signal-event post-upgrade
+#	/usr/bin/signal-event post-upgrade
         ;;
 esac
 

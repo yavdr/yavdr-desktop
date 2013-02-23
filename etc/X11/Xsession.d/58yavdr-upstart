@@ -1,0 +1,8 @@
+# Make ubuntu-upstart an alias for ubuntu
+if [ "$DESKTOP_SESSION" = "yavdr-upstart" ]; then
+    export DESKTOP_SESSION="gnome"
+    export GDMSESSION="gnome"
+    export XDG_CONFIG_DIRS="/usr/share/upstart/xdg:/etc/xdg"
+
+    STARTUP="init --user --inherit-env"
+fi

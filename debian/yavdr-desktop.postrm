@@ -3,7 +3,7 @@
 set -e
 
 if [ "$1" = remove ] ; then
-        /usr/bin/signal-event post-upgrade
+#        /usr/bin/signal-event post-upgrade
 fi
 
 #DEBHELPER#
