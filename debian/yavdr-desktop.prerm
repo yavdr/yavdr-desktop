@@ -5,8 +5,8 @@ set -e
 PKG=yavdr-desktop
 
 if [ "$1" = remove ] ; then
-        ETC_OVERRIDE=/etc/yavdr/override
-        FILES="/usr/share/gnome-shell/js/ui/endSessionDialog.js"
+        FILES="/usr/share/gnome-shell/js/ui/endSessionDialog.js \
+               /etc/pulse/default.pa"
 
         for f in $FILES
         do
@@ -15,6 +15,7 @@ if [ "$1" = remove ] ; then
                         --divert $f.distrib $f
         done
 
+        ETC_OVERRIDE=/etc/yavdr/override
         # created by postinst, remove it outside of loop
         rm -f $ETC_OVERRIDE/etc/lightdm/lightdm.conf
 #        rm -f /etc/init/yavdr-wm
