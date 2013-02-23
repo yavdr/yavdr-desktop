@@ -1,2 +1,0 @@
-<?cs set:mixer = "-c Master" ?>
-<?cs set:display = ":0.0" ?>
