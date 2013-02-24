@@ -38,7 +38,7 @@ pulseaudio-esound-compat
 pulseaudio-module-x11
 python-wnck
 rtkit
-upstart >= 1.7
+upstart>=1.7
 vdr-plugin-softhddevice
 xdg-user-dirs
 xserver-xorg-video-vmware
