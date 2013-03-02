@@ -33,7 +33,7 @@ case "$1" in
 		mkdir -p $ETC_OVERRIDE$(dirname $FILE)
         	cat <<EOF >$ETC_OVERRIDE$FILE
 [SeatDefaults] 
-autologin-user=$DESKTOP_USER
+autologin-user=\$DESKTOP_USER
 autologin-user-timeout=0
 user-session=yavdr-upstart
 EOF
