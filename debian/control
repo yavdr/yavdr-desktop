@@ -8,7 +8,7 @@ Build-Depends: debhelper (>= 7)
 
 Package: yavdr-desktop
 Architecture: any
-Depends: ${yavdr-desktop}
+Depends: ${yavdr-desktop}, python-gmenu
 Description: dependencies and configuration for yavdr-desktop
  dependencies and configuration for yavdr-desktop
 
