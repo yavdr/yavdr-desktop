@@ -2,9 +2,9 @@
 
 set -e
 
-if [ "$1" = remove ] ; then
+#if [ "$1" = remove ] ; then
 #        /usr/bin/signal-event post-upgrade
-fi
+#fi
 
 #DEBHELPER#
 
