@@ -17,7 +17,8 @@ case "$1" in
          /var/lib/AccountsService/users/* ||:
 
 	FILES="/usr/share/gnome-shell/js/ui/endSessionDialog.js \
-               /etc/pulse/default.pa"
+               /etc/pulse/default.pa \
+               /etc/lightdm/lightdm.conf"
         for f in $FILES
 	do
 		dpkg-divert --add --package ${PKG} --rename \
@@ -26,29 +27,10 @@ case "$1" in
                 	ln -sf /usr/share/yavdr/override/$f $f
 	done
 
-        DESKTOP_USER=vdr
-	if [ -n "$DESKTOP_USER" ]; then
-		ETC_OVERRIDE=/etc/yavdr/override
-		FILE=/etc/lightdm/lightdm.conf
-		mkdir -p $ETC_OVERRIDE$(dirname $FILE)
-        	cat <<EOF >$ETC_OVERRIDE$FILE
-[SeatDefaults] 
-autologin-user=$DESKTOP_USER
-autologin-user-timeout=0
-user-session=yavdr-upstart
-EOF
-		dpkg-divert --add --package ${PKG} --rename \
-			--divert $FILE.distrib $FILE
-        	[ \! -e $FILE -o -L $FILE ] && ln -sf $ETC_OVERRIDE$FILE $FILE
+       adduser vdr pulse-access
 
-                if ! grep "$DESKTOP_USER.*initctl" /etc/sudoers >/dev/null; then
-                    echo "$DESKTOP_USER ALL=NOPASSWD: /sbin/initctl *" >>/etc/sudoers
-                fi
-
-                adduser $DESKTOP_USER pulse-access
-
-                mkdir -p /home/$DESKTOP_USER/.xbmc/userdata
-        	cat <<EOF >/home/$DESKTOP_USER/.xbmc/userdata/advancedsettings.xml
+       mkdir -p /home/vdr/.xbmc/userdata
+       cat <<EOF >/home/vdr/.xbmc/userdata/advancedsettings.xml
 <advancedsettings>
     <videoscreen>
         <screen>-1</screen>
