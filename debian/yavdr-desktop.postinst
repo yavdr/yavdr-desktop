@@ -6,6 +6,7 @@ PKG=yavdr-desktop
 
 case "$1" in
     configure)
+	DESKTOP_SESSION=gnome
 	# initialize dconf database
 	/usr/bin/dconf update
 
@@ -44,6 +45,10 @@ EOF
 	/usr/bin/signal-event change-plugin disable vdr-plugin-xine
 	/usr/bin/signal-event change-plugin disable vdr-plugin-xineliboutput
 	/usr/bin/signal-event change-plugin enable vdr-plugin-softhddevice
+
+        if ! grep -q "^$DESKTOP_SESSION\$" /etc/upstart-xsessions; then
+          echo $DESKTOP_SESSION >>/etc/upstart-xsessions
+        fi
 
 #	/usr/bin/signal-event post-upgrade
         ;;

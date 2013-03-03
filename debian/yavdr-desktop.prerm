@@ -5,6 +5,8 @@ set -e
 PKG=yavdr-desktop
 
 if [ "$1" = remove ] ; then
+	DESKTOP_SESSION=gnome
+
         FILES="/usr/share/gnome-shell/js/ui/endSessionDialog.js \
                /etc/pulse/default.pa"
 
@@ -15,10 +17,7 @@ if [ "$1" = remove ] ; then
                         --divert $f.distrib $f
         done
 
-        ETC_OVERRIDE=/etc/yavdr/override
-        # created by postinst, remove it outside of loop
-        rm -f $ETC_OVERRIDE/etc/lightdm/lightdm.conf
-#        rm -f /etc/init/yavdr-wm
+        sed -i -e "/^$DESKTOP_SESSION\$/d" /etc/upstart-xsessions
 fi
 
 #DEBHELPER#
