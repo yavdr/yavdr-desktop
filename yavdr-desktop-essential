@@ -36,6 +36,7 @@ paprefs
 pulseaudio
 pulseaudio-esound-compat
 pulseaudio-module-x11
+python-gmenu
 python-wnck
 rtkit
 vdr-plugin-softhddevice
