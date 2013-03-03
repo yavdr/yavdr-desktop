@@ -11,15 +11,14 @@ case "$1" in
 	/usr/bin/dconf update
 
 	# set gnome shell as standard desktop
-        /usr/lib/lightdm/lightdm-set-defaults -s yavdr-upstart
+        /usr/lib/lightdm/lightdm-set-defaults -a vdr -s yavdr-upstart
 
 	# the previous statements seems to be not enough
 	sed -i -e "s/^\(XSession=\).*$/\1yavdr-upstart/" \
          /var/lib/AccountsService/users/* ||:
 
 	FILES="/usr/share/gnome-shell/js/ui/endSessionDialog.js \
-               /etc/pulse/default.pa \
-               /etc/lightdm/lightdm.conf"
+               /etc/pulse/default.pa"
         for f in $FILES
 	do
 		dpkg-divert --add --package ${PKG} --rename \
