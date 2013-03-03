@@ -27,10 +27,11 @@ case "$1" in
                 	ln -sf /usr/share/yavdr/override/$f $f
 	done
 
-       adduser vdr pulse-access
+        adduser vdr pulse-access
 
-       mkdir -p /home/vdr/.xbmc/userdata
-       cat <<EOF >/home/vdr/.xbmc/userdata/advancedsettings.xml
+        if [ ! -e /home/vdr/.xbmc/userdata/advancedsettings.xml ]; then
+          mkdir -p /home/vdr/.xbmc/userdata
+          cat <<EOF >/home/vdr/.xbmc/userdata/advancedsettings.xml
 <advancedsettings>
     <videoscreen>
         <screen>-1</screen>
