@@ -8,8 +8,7 @@ if [ "$1" = remove ] ; then
 	DESKTOP_SESSION=gnome
 
         FILES="/usr/share/gnome-shell/js/ui/endSessionDialog.js \
-               /etc/pulse/default.pa \
-               /etc/default/pulseaudio"
+               /etc/pulse/default.pa"
 
         for f in $FILES
         do
