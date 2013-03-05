@@ -18,7 +18,8 @@ case "$1" in
          /var/lib/AccountsService/users/* ||:
 
 	FILES="/usr/share/gnome-shell/js/ui/endSessionDialog.js \
-               /etc/pulse/default.pa"
+               /etc/pulse/default.pa \
+               /etc/default/pulseaudio"
         for f in $FILES
 	do
 		dpkg-divert --add --package ${PKG} --rename \
