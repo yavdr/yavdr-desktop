@@ -1,0 +1,6 @@
+[org/gnome/gnome-panel/layout/toplevels/top-panel]
+auto-hide=true
+hide-delay=0
+size=48
+unhide-delay=0
+
