@@ -2,10 +2,7 @@ app-install-data
 colord
 dconf-tools
 gnome-control-center
-gnome-session
 gnome-session-fallback
-gnome-shell
-gnome-shell-extensions-autohidetopbar
 gnome-terminal
 gnome-themes-standard
 gnome-tweak-tool

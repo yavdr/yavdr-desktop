@@ -5,10 +5,9 @@ set -e
 PKG=yavdr-desktop
 
 if [ "$1" = remove ] ; then
-	DESKTOP_SESSION=gnome
+	DESKTOP_SESSION=gnome-fallback
 
-        FILES="/usr/share/gnome-shell/js/ui/endSessionDialog.js \
-               /etc/pulse/default.pa"
+        FILES="/etc/pulse/default.pa"
 
         for f in $FILES
         do

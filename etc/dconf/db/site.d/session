@@ -1,2 +1,2 @@
 [org/gnome/desktop/session]
-session-name='gnome-shell'
+session-name='gnome-fallback'

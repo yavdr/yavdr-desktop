@@ -6,7 +6,7 @@ PKG=yavdr-desktop
 
 case "$1" in
     configure)
-	DESKTOP_SESSION=gnome
+	DESKTOP_SESSION=gnome-fallback
 	# initialize dconf database
 	/usr/bin/dconf update
 
@@ -14,11 +14,10 @@ case "$1" in
         /usr/lib/lightdm/lightdm-set-defaults -a vdr -s $DESKTOP_SESSION
 
 	# the previous statements seems to be not enough
-	sed -i -e "s/^\(XSession=\).*$/\1gnome/" \
+	sed -i -e "s/^\(XSession=\).*$/\1$DESKTOP_SESSION/" \
          /var/lib/AccountsService/users/* ||:
 
-	FILES="/usr/share/gnome-shell/js/ui/endSessionDialog.js \
-               /etc/pulse/default.pa"
+	FILES="/etc/pulse/default.pa"
         for f in $FILES
 	do
 		dpkg-divert --add --package ${PKG} --rename \
@@ -37,6 +36,7 @@ case "$1" in
     </videoscreen>
 </advancedsettings>
 EOF
+	  chown -R vdr:vdr /home/vdr/.xbmc
 	fi
 
 	/usr/bin/signal-event change-plugin disable vdr-plugin-xine
