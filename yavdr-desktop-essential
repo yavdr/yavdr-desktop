@@ -20,7 +20,6 @@ lightdm
 lightdm-gtk-greeter
 libx11-6
 libxss1
-mousetweaks
 nautilus
 nautilus-sendto
 network-manager
