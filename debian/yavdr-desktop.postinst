@@ -14,6 +14,8 @@ case "$1" in
         /usr/lib/lightdm/lightdm-set-defaults -a vdr -s $DESKTOP_SESSION
 
 	# the previous statements seems to be not enough
+	rm -f /home/vdr/.dmrc
+
 	sed -i -e "s/^\(XSession=\).*$/\1$DESKTOP_SESSION/" \
          /var/lib/AccountsService/users/* ||:
 
