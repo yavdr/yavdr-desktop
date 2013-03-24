@@ -28,19 +28,6 @@ case "$1" in
                 	ln -sf /usr/share/yavdr/override/$f $f
 	done
 
-        if [ ! -e /home/vdr/.xbmc/userdata/advancedsettings.xml ]; then
-          mkdir -p /home/vdr/.xbmc/userdata
-          cat <<EOF >/home/vdr/.xbmc/userdata/advancedsettings.xml
-<advancedsettings>
-    <videoscreen>
-        <screen>-1</screen>
-        <screenmode>WINDOW</screenmode>
-    </videoscreen>
-</advancedsettings>
-EOF
-	  chown -R vdr:vdr /home/vdr/.xbmc
-	fi
-
 	/usr/bin/signal-event change-plugin disable vdr-plugin-xine
 	/usr/bin/signal-event change-plugin disable vdr-plugin-xineliboutput
 	/usr/bin/signal-event change-plugin enable vdr-plugin-softhddevice
